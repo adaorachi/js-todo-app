@@ -1,4 +1,8 @@
 import UI from './ui';
+import Logic from './logic';
 
 const ui = UI();
-ui.testing();
+ui.displayProjectToDom();
+
+const logic = Logic();
+logic.addProjectToDom();

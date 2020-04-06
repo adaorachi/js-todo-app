@@ -9,7 +9,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
   <title>Todoist App</title>
 </head>
 
@@ -39,14 +39,13 @@
                   <i class="fas fa-project-diagram"></i> &nbsp;
                   <span>All Projects</span>
                   <i class="fas fa-sort-down"></i>
-                  <div class="collapse" id="collapseProject">
+                  <!-- <div class="collapse show" id="collapseProject"> -->
                     <div class="card card-body p-0 m-2">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">General Project</li>
-                        <li class="list-group-item">School Project</li>
+                      <ul class="list-group list-group-flush all-projects" id= "all-projects">
+                        <li class="list-group-item" id="project-0">General Project</li>
                       </ul>
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </li>
                 <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal">
                   <i class="fas fa-plus-circle"></i>
@@ -56,7 +55,69 @@
             </div>
           </div>
           <div class="col-10">
-            main content
+            <div class= "project-content">
+              <div class="card text-center">
+                <div class="card-header" id="project-title">
+                  General Project
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  
+                </div>
+                <div class="card-footer text-muted">
+                  <form action="">
+                    <div class="row no-gutters">
+                      <div class="col-7 px-2">
+                        <div class="form-group">
+                          <label for="task-name">Title </label>
+                          <input type="text" class="form-control form-control-sm" id="task-name">
+                        </div>
+                      </div>
+                      <div class= "col-5 px-2">
+                        <div class="form-group">
+                          <label for="task-date">Date </label>
+                          <input type="date" class="form-control form-control-sm" id="task-date">
+                        </div>                  
+                      </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-7 px-2">
+                        <div class="form-group">
+                          <label for="task-description">Description</label>
+                          <textarea class="form-control form-control-sm" id="task-description"></textarea>
+                        </div>
+
+                      </div>
+                      <div class="col-5">
+                        <div class="form-check">
+                          <input class="form-check-input"  name="priorityRadios" type="radio" id="task-priority1" value="option1">
+                          <label class="form-check-label" for="task-priority1">
+                            Priority 1
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" name="priorityRadios" type="radio"  id="task-priority2" value="option2">
+                          <label class="form-check-label" for="task-priority2">
+                            Priority 2
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input"  name="priorityRadios" type="radio" id="task-priority3" value="option3">
+                          <label class="form-check-label" for="task-priority3">
+                            Priority 3
+                          </label>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <a href="#" class="btn btn-primary">Add Task</a>
+                  </form>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -94,8 +155,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-primary">Add Project</button>
+            <button type="button" class="btn btn-sm btn-primary" id="add-project-btn" data-dismiss="modal">Add Project</button>
           </div>
         </div>
       </div>
