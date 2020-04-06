@@ -1,0 +1,62 @@
+$font-header: 'Satisfy', cursive;
+
+$primary-color1: #7d70eb;
+$primary-color2: #2ea2fd;
+
+.wrapper {
+  font-size: 16px;
+  .navbar {
+    background: linear-gradient(to left, $primary-color1, $primary-color2);
+    padding: 0 1.5rem;
+    box-shadow: 2px 2px 6px rgb(151, 150, 150);
+    height: 50px;
+
+    .navbar-brand {
+      font-family: $font-header;
+      color: #fff;
+      font-size: 1.8rem;
+
+      &:hover {
+        color: #eee;
+      }
+    }
+  }
+
+  .main {
+    transform: translateY(50px);
+
+    .side-bar {
+      background-color: rgb(250, 248, 248);
+      border-right: 1px solid #ddd;
+      height: 100vh;
+      padding-top: 3rem;
+
+      .list-group-item {
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  .select-icons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 1rem;
+
+    .icon {
+      font-size: 2rem;
+      color: #555;
+      padding: 0.6rem;
+      text-align: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 0 3px #9a9898;
+        color: #999;
+      }
+    }
+  }
+
+}

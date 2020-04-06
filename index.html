@@ -5,12 +5,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Todoist App</title>
 </head>
 
 <body>
 
+  <div class="wrapper">
+    <header>
+      <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          Todoist
+        </a>
+      </nav>
+    </header>
 
+    <main class="main">
+      <div class="main-content">
+        <div class="row no-gutters">
+          <div class="col-2">
+            <div class="side-bar">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <i class="fas fa-tasks"></i>
+                  &nbsp; All Tasks
+                </li>
+                <li class="list-group-item" type="button" data-toggle="collapse" data-target="#collapseProject"
+                  aria-expanded="false" aria-controls="collapseProject">
+                  <i class="fas fa-project-diagram"></i> &nbsp;
+                  <span>All Projects</span>
+                  <i class="fas fa-sort-down"></i>
+                  <div class="collapse" id="collapseProject">
+                    <div class="card card-body p-0 m-2">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">General Project</li>
+                        <li class="list-group-item">School Project</li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal">
+                  <i class="fas fa-plus-circle"></i>
+                  &nbsp;Add New Project
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-10">
+            main content
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addProjectModalLabel">Add A Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="project-name">Project Name</label>
+                <input type="text" class="form-control form-control-sm" id="project-name"
+                  placeholder="Enter Project Name">
+              </div>
+              <div class="form-group">
+                <label for="project-icon">Select Icon</label>
+                <div class="select-icons">
+                  <i class="fas fa-briefcase icon" id="work"></i>
+                  <i class="fas fa-book-reader icon" id="school"></i>
+                  <i class="fas fa-shopping-cart icon" id="grocery"></i>
+                  <i class="fas fa-users icon" id="event"></i>
+                  <i class="fas fa-plane-departure icon" id="trip"></i>
+                  <i class="fas fa-briefcase icon" id="others"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-sm btn-primary">Add Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
   <script src="dist/main.js"></script>
 </body>
 

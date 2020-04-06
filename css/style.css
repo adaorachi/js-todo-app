@@ -1,1 +1,64 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.wrapper {
+  font-size: 16px;
+}
+
+.wrapper .navbar {
+  background: -webkit-gradient(linear, right top, left top, from(#7d70eb), to(#2ea2fd));
+  background: linear-gradient(to left, #7d70eb, #2ea2fd);
+  padding: 0 1.5rem;
+  -webkit-box-shadow: 2px 2px 6px #979696;
+          box-shadow: 2px 2px 6px #979696;
+  height: 50px;
+}
+
+.wrapper .navbar .navbar-brand {
+  font-family: "Satisfy", cursive;
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.wrapper .navbar .navbar-brand:hover {
+  color: #eee;
+}
+
+.wrapper .main {
+  -webkit-transform: translateY(50px);
+          transform: translateY(50px);
+}
+
+.wrapper .main .side-bar {
+  background-color: #faf8f8;
+  border-right: 1px solid #ddd;
+  height: 100vh;
+  padding-top: 3rem;
+}
+
+.wrapper .main .side-bar .list-group-item {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.wrapper .select-icons {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[6];
+      grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 1rem;
+}
+
+.wrapper .select-icons .icon {
+  font-size: 2rem;
+  color: #555;
+  padding: 0.6rem;
+  text-align: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+}
+
+.wrapper .select-icons .icon:hover {
+  -webkit-box-shadow: 0 0 3px #9a9898;
+          box-shadow: 0 0 3px #9a9898;
+  color: #999;
+}
+/*# sourceMappingURL=style.css.map */
