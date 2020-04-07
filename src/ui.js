@@ -1,6 +1,12 @@
 const UI = () => {
   let getClickedIcon;
 
+  const setProjects = (projectValues, id) => {
+    const infoProjects = JSON.parse(localStorage.getItem('allProjects'));
+    infoProjects[id] = projectValues;
+    localStorage.setItem('allProjects', JSON.stringify(infoProjects));
+  };
+
   const hideAndDisplayElement = (ele, arrayList) => {
     const array = document.querySelectorAll(arrayList);
     array.forEach((item) => {
@@ -11,6 +17,30 @@ const UI = () => {
       }
     });
   };
+
+  const resetForm = (form) => {
+    document.getElementById(form).reset();
+  };
+
+  const resetIcons = () => {
+    const array = document.querySelectorAll('.select-icons .icon');
+    array.forEach((icon) => {
+      icon.classList.remove('clicked');
+    });
+  };
+
+  const getClickedProjectIcon = () => {
+    const iconArea = document.querySelector('.select-icons');
+    iconArea.addEventListener('click', (e) => {
+      if (e.target.classList.contains('icon')) {
+        const { id } = e.target;
+        hideAndDisplayElement(id, '.select-icons .icon');
+        getClickedIcon = e.target.className;
+      }
+      return getClickedIcon;
+    });
+  };
+
 
   const addProjectToList = () => {
     const addProjectButton = document.getElementById('add-project-btn');
@@ -24,6 +54,8 @@ const UI = () => {
       list.id = `project-${counter}`;
       list.innerHTML = `${titleName.value} <span class="${getClickedIcon}"></span>`;
       allProjectsList.append(list);
+      const projectValues = { id: list.id, title: titleName.value, icon: getClickedIcon };
+      setProjects(projectValues, list.id);
       resetForm('add-project-form');
       resetIcons();
       counter += 1;
@@ -56,6 +88,7 @@ const UI = () => {
     return appendTask;
   };
 
+
   const addTaskToProject = (getFormInput) => {
     const addTaskBtn = document.getElementById('add-task-button');
     const taskContainer = document.getElementById('all-tasks-content');
@@ -63,32 +96,19 @@ const UI = () => {
     const formButtons = document.getElementsByName('priorityRadios');
 
     addTaskBtn.addEventListener('click', () => {
-      const getinputs = getFormInput(formInputs, formButtons)
+      const getinputs = getFormInput(formInputs, formButtons);
       const values = createTaskContent(getinputs);
       resetForm('add-task-form');
       taskContainer.append(values);
     });
   };
 
-  const getClickedProjectIcon = () => {
-    const iconArea = document.querySelector('.select-icons');
-    iconArea.addEventListener('click', (e) => {
-      if (e.target.classList.contains('icon')) {
-        const { id } = e.target;
-        hideAndDisplayElement(id, '.select-icons .icon');
-        getClickedIcon = e.target.className;
-        return getClickedIcon;
-      }
-    });
-  };
-
-  const toggleAllProject = () => {
-    const allProjectBtn = document.getElementById('display-all-project-btn');
-    const projectContent = document.getElementById('all-project-content');
-    allProjectBtn.addEventListener('click', () => {
-      projectContent.classList.toggle('hide');
-    });
-  };
+  // const toggleAllProject = () => {
+  //   const allProjectBtn = document.getElementById('display-all-project-btn');
+  //   const projectContent = document.getElementById('all-project-content');
+  //     projectContent.classList.toggle('hide');
+  //   });
+  // };
 
   const toggleTaskForm = () => {
     const addTaskBtn = document.getElementById('add-task-form-btn');
@@ -109,18 +129,10 @@ const UI = () => {
     });
   };
 
-  const resetForm = (form) => {
-    document.getElementById(form).reset();
-  };
 
-  const resetIcons = () => {
-    const array = document.querySelectorAll('.select-icons .icon');
-    array.forEach((icon) => {
-      icon.classList.remove('clicked');
-    });
+  return {
+    displayProjectInCard, addTaskToProject, validateForm, addProjectToList, toggleTaskForm,
   };
-
-  return { displayProjectInCard, addTaskToProject, validateForm, addProjectToList, toggleAllProject, toggleTaskForm };
 };
 
 module.exports = UI;

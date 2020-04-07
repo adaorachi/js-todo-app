@@ -1,7 +1,9 @@
 import UI from './ui';
 import Logic from './logic';
+import LocalStorage from './localStorage';
 
 const logic = Logic();
+
 
 const ui = UI();
 ui.addProjectToList();
@@ -10,3 +12,6 @@ ui.addTaskToProject(logic.getTaskValues);
 ui.validateForm();
 ui.toggleAllProject();
 ui.toggleTaskForm();
+
+const localStorage = LocalStorage();
+localStorage.getDefault();

@@ -13,6 +13,15 @@ const Logic = () => {
     return getInputValues;
   };
 
+  // const setProjects = (id) => {
+  //   if (localStorage.getItem('allProjects') === null) {
+  //     localStorage.setItem('allProjects', 'project-0');
+  //   } else {
+  //     const infoProjects = JSON.parse(localStorage.getItem('allProjects'));
+  //     infoProjects.push(id);
+  //     localStorage.setItem('allProjects', JSON.stringify(infoProjects));
+  //   }
+  // };
   return { getTaskValues };
 };
 
