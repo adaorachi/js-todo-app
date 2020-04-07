@@ -1,3 +1,16 @@
+.button {
+  background: -webkit-gradient(linear, left top, left bottom, from(#7d70eb), to(#2ea2fd));
+  background: linear-gradient(to bottom, #7d70eb, #2ea2fd);
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: "Satisfy", cursive;
+}
+
+.button:hover {
+  color: #eee;
+}
+
 .wrapper {
   font-size: 16px;
 }
@@ -36,6 +49,111 @@
 .wrapper .main .side-bar .list-group-item {
   background-color: transparent;
   cursor: pointer;
+  padding: .75rem 1rem;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.wrapper .main .side-bar .all-project-content {
+  height: 15rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin: 0 1rem 1rem;
+  padding: 0;
+  -webkit-transition: height 650ms;
+  transition: height 650ms;
+}
+
+.wrapper .main .side-bar .all-project-content.hide {
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+}
+
+.wrapper .main .side-bar .all-project-content .list-group-item {
+  padding: .75rem .8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper .main .side-bar .all-project-content .list-group-item:hover, .wrapper .main .side-bar .all-project-content .list-group-item.clicked {
+  background-color: #eee;
+}
+
+.wrapper .main .side-bar .all-project-content .list-group-item.clicked {
+  color: #2ea2fd;
+}
+
+.wrapper .main .project-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper .main .project-card .add-task-inputs {
+  height: 220px;
+  -webkit-transition: height 650ms;
+  transition: height 650ms;
+}
+
+.wrapper .main .project-card .add-task-inputs.hide {
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+}
+
+.wrapper .main .project-card .all-tasks-content .list-group-item {
+  position: relative;
+  border-radius: 10px;
+  border-top: 0;
+  -webkit-box-shadow: 0px 0px 4px #c1c1c1;
+          box-shadow: 0px 0px 4px #c1c1c1;
+  padding: 0.2rem 0.9rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.wrapper .main .project-card .all-tasks-content .list-group-item.red-border {
+  border-left: 6px solid #dc3545;
+}
+
+.wrapper .main .project-card .all-tasks-content .list-group-item.blue-border {
+  border-left: 6px solid #007bff;
+}
+
+.wrapper .main .project-card .all-tasks-content .list-group-item.yellow-border {
+  border-left: 6px solid #ffc107;
+}
+
+.wrapper .main .project-card .all-tasks-content .list-group-item .task-icons {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.wrapper .main #add-project-modal-btn:hover .plus-btn:before {
+  content: '\f055';
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .wrapper .select-icons {
@@ -51,14 +169,40 @@
   color: #555;
   padding: 0.6rem;
   text-align: center;
-  width: 3.5rem;
   height: 3.5rem;
   cursor: pointer;
 }
 
-.wrapper .select-icons .icon:hover {
-  -webkit-box-shadow: 0 0 3px #9a9898;
-          box-shadow: 0 0 3px #9a9898;
-  color: #999;
+.wrapper .select-icons .icon:hover, .wrapper .select-icons .icon.clicked {
+  -webkit-box-shadow: 0 0 8px 1px #dedddd;
+          box-shadow: 0 0 8px 1px #dedddd;
+  background-image: -webkit-gradient(linear, right top, left top, from(#7d70eb), to(#2ea2fd));
+  background-image: linear-gradient(to left, #7d70eb, #2ea2fd);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-transition: -webkit-box-shadow 200ms;
+  transition: -webkit-box-shadow 200ms;
+  transition: box-shadow 200ms;
+  transition: box-shadow 200ms, -webkit-box-shadow 200ms;
+}
+
+.wrapper .select-icons .icon.clicked {
+  -webkit-animation: move forwards 300ms ease-in-out;
+          animation: move forwards 300ms ease-in-out;
+}
+
+@-webkit-keyframes move {
+  100% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+}
+
+@keyframes move {
+  100% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
 }
 /*# sourceMappingURL=style.css.map */

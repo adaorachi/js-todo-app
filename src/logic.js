@@ -1,20 +1,19 @@
-
 const Logic = () => {
-  const addProjectToDom = () => {
-    const addProjectButton = document.getElementById('add-project-btn');
-    const allProjectsList = document.getElementById('all-projects');
-    const titleName = document.getElementById('project-name');
-    let counter = 1;
-    addProjectButton.addEventListener('click', () => {
-      const list = document.createElement('li');
-      list.className = 'list-group-item';
-      list.id = `project-${counter}`;
-      list.innerText = titleName.value;
-      allProjectsList.append(list);
-      counter += 1;
+  const getTaskValues = (array, radioButtons) => {
+    const getInputValues = {};
+    array.forEach((input) => {
+      getInputValues[input.id] = input.value;
     });
+
+    radioButtons.forEach((button) => {
+      if (button.checked) {
+        getInputValues.task_radio = button.value;
+      }
+    });
+    return getInputValues;
   };
-  return { addProjectToDom };
+
+  return { getTaskValues };
 };
 
 module.exports = Logic;

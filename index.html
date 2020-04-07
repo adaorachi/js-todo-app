@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <title>Todoist App</title>
 </head>
 
@@ -34,85 +34,101 @@
                   <i class="fas fa-tasks"></i>
                   &nbsp; All Tasks
                 </li>
-                <li class="list-group-item" type="button" data-toggle="collapse" data-target="#collapseProject"
-                  aria-expanded="false" aria-controls="collapseProject">
+                <li class="list-group-item" id="display-all-project-btn">
                   <i class="fas fa-project-diagram"></i> &nbsp;
                   <span>All Projects</span>
                   <i class="fas fa-sort-down"></i>
-                  <!-- <div class="collapse show" id="collapseProject"> -->
-                    <div class="card card-body p-0 m-2">
-                      <ul class="list-group list-group-flush all-projects" id= "all-projects">
-                        <li class="list-group-item" id="project-0">General Project</li>
-                      </ul>
-                    </div>
-                  <!-- </div> -->
                 </li>
-                <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal">
-                  <i class="fas fa-plus-circle"></i>
+                <div class="card card-body all-project-content" id="all-project-content">
+                  <ul class="list-group list-group-flush" id="all-projects">
+                    <li class="list-group-item" id="project-0">General Project</li>
+                  </ul>
+                </div>
+
+                <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal"
+                  id="add-project-modal-btn">
+                  <i class="fas fa-plus plus-btn" id="plus-btn"></i>
                   &nbsp;Add New Project
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-10">
-            <div class= "project-content">
+            <div class="project-card">
               <div class="card text-center">
                 <div class="card-header" id="project-title">
                   General Project
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  
+                  <ul class="list-group list-group-flush all-tasks-content" id="all-tasks-content">
+                    <li class="list-group-item">
+                      <h6 class="card-title mb-1">Special title treatment &nbsp;&nbsp;<small
+                          class="task-date">09/09/2020</small> </h6>
+                      <small class="card-text">With supporting text below as a natural lead-in to additional content.
+                      </small>
+                      <div class="task-icons">
+                        <i class="far fa-edit edit text-info"></i>
+                        <i class="far fa-trash-alt delete text-danger"></i>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
                 <div class="card-footer text-muted">
-                  <form action="">
-                    <div class="row no-gutters">
-                      <div class="col-7 px-2">
-                        <div class="form-group">
-                          <label for="task-name">Title </label>
-                          <input type="text" class="form-control form-control-sm" id="task-name">
+                  <button type="button" class="btn btn-sm button" id="add-task-form-btn">Add Task <i
+                      class="fas fa-sort-down"></i></button>
+                  <form id="add-task-form">
+                    <div id="add-task-inputs" class="add-task-inputs hide">
+                      <div class="row no-gutters">
+                        <div class="col-7 px-2">
+                          <div class="form-group">
+                            <label for="task-name">Title </label>
+                            <input type="text" class="form-control form-control-sm" id="task_name">
+                          </div>
+                        </div>
+                        <div class="col-5 px-2">
+                          <div class="form-group">
+                            <label for="task-date">Date </label>
+                            <input type="date" class="form-control form-control-sm" id="task_date">
+                          </div>
                         </div>
                       </div>
-                      <div class= "col-5 px-2">
-                        <div class="form-group">
-                          <label for="task-date">Date </label>
-                          <input type="date" class="form-control form-control-sm" id="task-date">
-                        </div>                  
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-7 px-2">
+                          <div class="form-group">
+                            <label for="task-description">Description</label>
+                            <textarea class="form-control form-control-sm" id="task_description"></textarea>
+                          </div>
+
+                        </div>
+                        <div class="col-5">
+                          <div class="form-check">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority1"
+                              value="red">
+                            <label class="form-check-label" for="task-priority1">
+                              Priority 1 <i class="fas fa-flag text-danger"></i>
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority2"
+                              value="yellow">
+                            <label class="form-check-label" for="task-priority2">
+                              Priority 2 <i class="fas fa-flag text-warning"></i>
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority3"
+                              value="blue">
+                            <label class="form-check-label" for="task-priority3">
+                              Priority 3 <i class="fas fa-flag text-primary"></i>
+                            </label>
+                          </div>
+
+                        </div>
+
                       </div>
+                      <button type="button" class="btn btn-primary" id="add-task-button">Add Task</button>
                     </div>
-                    <div class="row no-gutters align-items-center">
-                      <div class="col-7 px-2">
-                        <div class="form-group">
-                          <label for="task-description">Description</label>
-                          <textarea class="form-control form-control-sm" id="task-description"></textarea>
-                        </div>
 
-                      </div>
-                      <div class="col-5">
-                        <div class="form-check">
-                          <input class="form-check-input"  name="priorityRadios" type="radio" id="task-priority1" value="option1">
-                          <label class="form-check-label" for="task-priority1">
-                            Priority 1
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" name="priorityRadios" type="radio"  id="task-priority2" value="option2">
-                          <label class="form-check-label" for="task-priority2">
-                            Priority 2
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input"  name="priorityRadios" type="radio" id="task-priority3" value="option3">
-                          <label class="form-check-label" for="task-priority3">
-                            Priority 3
-                          </label>
-                        </div>
-
-                      </div>
-
-                    </div>
-                    <a href="#" class="btn btn-primary">Add Task</a>
                   </form>
                 </div>
               </div>
@@ -129,13 +145,13 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addProjectModalLabel">Add A Project</h5>
+            <h5 class="modal-title" id="addProjectModalLabel">Add Project</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="add-project-form">
               <div class="form-group">
                 <label for="project-name">Project Name</label>
                 <input type="text" class="form-control form-control-sm" id="project-name"
@@ -155,7 +171,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-primary" id="add-project-btn" data-dismiss="modal">Add Project</button>
+            <button type="button" class="btn btn-sm button" id="add-project-btn" data-dismiss="modal" disabled>Add
+              Project</button>
           </div>
         </div>
       </div>

@@ -1,8 +1,12 @@
 import UI from './ui';
 import Logic from './logic';
 
-const ui = UI();
-ui.displayProjectToDom();
-
 const logic = Logic();
-logic.addProjectToDom();
+
+const ui = UI();
+ui.addProjectToList();
+ui.displayProjectInCard();
+ui.addTaskToProject(logic.getTaskValues);
+ui.validateForm();
+ui.toggleAllProject();
+ui.toggleTaskForm();
