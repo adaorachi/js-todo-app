@@ -12,7 +12,6 @@ const Logic = () => {
     });
     return getInputValues;
   };
-
   // const setProjects = (id) => {
   //   if (localStorage.getItem('allProjects') === null) {
   //     localStorage.setItem('allProjects', 'project-0');
@@ -25,4 +24,4 @@ const Logic = () => {
   return { getTaskValues };
 };
 
-module.exports = Logic;
+export default Logic;

@@ -1,3 +1,5 @@
+import { isAfter, isFuture, format } from 'date-fns';
+
 const UI = () => {
   let getClickedIcon;
 
@@ -92,14 +94,23 @@ const UI = () => {
           return value.id === id;
         });
 
+        let expiredDate;
         let list = '';
         getProjectTasks.forEach((ele) => {
           const value = ele[1];
           const key = ele[0];
+          const mydate = format(new Date(value.task_date), 'MM/dd/yyyy');
+          if (mydate < format(new Date(), 'MM/dd/yyyy')) {
+            expiredDate = 'Task expired';
+          } else {
+            expiredDate = '';
+          }
+
+          // if (format(value.task_date, 'DD.MM.YYYY') <  )
           list += `
           <li class="list-group-item ${value.task_radio}-border" id="task-list-${key}">
             <h6 class="card-title mb-1"><span id= "task-title-${key}">${value.task_name}</span> &nbsp;&nbsp;<small
-                class="task-date" id="task-date-${key}">${value.task_date}</small> </h6>
+                class="task-date" id="task-date-${key}">${value.task_date}</small> </h6> <small>${expiredDate}</small>
             <small class="card-text" id= "task-description-${key}">${value.task_description}
             </small>
             <div class="task-icons" id="task-icons">
@@ -199,11 +210,11 @@ const UI = () => {
 
       const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
       getAllTasks[listid] = {
-        task_name: newValues['0'], 
+        task_name: newValues['0'],
         task_date: newValues['1'],
-        task_description: newValues['2'], 
-        task_radio: newValues.task_radio, 
-        id: `project-${listid}`
+        task_description: newValues['2'],
+        task_radio: newValues.task_radio,
+        id: `project-${listid}`,
       };
       localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
     });
@@ -216,7 +227,7 @@ const UI = () => {
         const taskId = editID.split('-')[1];
         const [title, date, description] = [`task-title-${taskId}`, `task-date-${taskId}`, `task-description-${taskId}`];
         const editTitle = document.getElementById(title).innerText;
-        document.getElementById(title).innerHTML = `<input type= 'text' value="${editTitle}" class="form-control">`;
+        document.getElementById(title).innerHTML = `<input type='text' maxlength="30" value="${editTitle}" class="form-control">`;
         const editDate = document.getElementById(date).innerText;
         document.getElementById(date).innerHTML = `<input type= 'date' value="${editDate}" class="form-control">`;
         const editDescription = document.getElementById(description).innerText;
@@ -291,4 +302,4 @@ const UI = () => {
   };
 };
 
-module.exports = UI;
+export default UI;
