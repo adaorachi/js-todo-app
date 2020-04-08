@@ -1,6 +1,18 @@
 const LocalStorage = () => {
   const getDefault = () => {
-    // let items;
+    const taskdefault = {
+      0: {
+        task_name: 'project-0',
+        task_description: 'General Projects',
+        task_radio: 'fas fa-briefcase icon',
+        task_date: 'fas fa-briefcase icon',
+      },
+    };
+
+    if (localStorage.getItem('allTasks') === null) {
+      localStorage.setItem('allTasks', JSON.stringify(taskdefault));
+    }
+
     const projectdefault = {
       'project-0': {
         id: 'project-0',
@@ -21,7 +33,7 @@ const LocalStorage = () => {
       const list = document.createElement('li');
 
       list.className = 'list-group-item';
-      list.id = `${keys}`;
+      list.id = `project-${value}`;
       list.innerHTML = `${keys.title} <span class="${keys.icon}"></span>`;
       allProjectsList.append(list);
     });

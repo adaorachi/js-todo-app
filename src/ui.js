@@ -7,6 +7,12 @@ const UI = () => {
     localStorage.setItem('allProjects', JSON.stringify(infoProjects));
   };
 
+  const setTasks = (taskValues, id) => {
+    const infoTasks = JSON.parse(localStorage.getItem('allTasks'));
+    infoTasks[id] = taskValues;
+    localStorage.setItem('allTasks', JSON.stringify(infoTasks));
+  };
+
   const hideAndDisplayElement = (ele, arrayList) => {
     const array = document.querySelectorAll(arrayList);
     array.forEach((item) => {
@@ -70,6 +76,7 @@ const UI = () => {
         hideAndDisplayElement(id, '.all-project-content .list-group-item');
         const projectTitle = document.getElementById('project-title');
         projectTitle.innerHTML = e.target.innerHTML;
+        document.getElementById('add-task-button').className = `btn btn-sm btn-primary ${id}`;
       }
     });
   };
@@ -95,11 +102,17 @@ const UI = () => {
     const formInputs = document.querySelectorAll('#add-task-form .form-control');
     const formButtons = document.getElementsByName('priorityRadios');
 
+    let counter = 1;
     addTaskBtn.addEventListener('click', () => {
+      const buttonId = addTaskBtn.className.split(' ')[3];
       const getinputs = getFormInput(formInputs, formButtons);
       const values = createTaskContent(getinputs);
+      getinputs.id = buttonId;
+      setTasks(getinputs, `${counter}`);
+      console.log(counter)
       resetForm('add-task-form');
       taskContainer.append(values);
+      counter += 1;
     });
   };
 
