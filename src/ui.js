@@ -8,9 +8,15 @@ const UI = () => {
   };
 
   const setTasks = (taskValues, id) => {
-    const infoTasks = JSON.parse(localStorage.getItem('allTasks'));
-    infoTasks[id] = taskValues;
-    localStorage.setItem('allTasks', JSON.stringify(infoTasks));
+    if (localStorage.getItem('allTasks') === null) {
+      const infoTasks = {};
+      infoTasks[id] = taskValues;
+      localStorage.setItem('allTasks', JSON.stringify(infoTasks));
+    } else {
+      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+      getAllTasks[id] = taskValues;
+      localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
+    }
   };
 
   const hideAndDisplayElement = (ele, arrayList) => {
@@ -47,36 +53,63 @@ const UI = () => {
     });
   };
 
-
   const addProjectToList = () => {
     const addProjectButton = document.getElementById('add-project-btn');
     const allProjectsList = document.getElementById('all-projects');
     const titleName = document.getElementById('project-name');
-    let counter = 1;
+
+    const getAllProjects = JSON.parse(localStorage.getItem('allProjects'));
+    const { length } = getAllProjects === null ? 0 : Object.keys(getAllProjects);
+
     getClickedProjectIcon();
     addProjectButton.addEventListener('click', () => {
       const list = document.createElement('li');
       list.className = 'list-group-item';
-      list.id = `project-${counter}`;
+      list.id = `project-${length}`;
       list.innerHTML = `${titleName.value} <span class="${getClickedIcon}"></span>`;
       allProjectsList.append(list);
       const projectValues = { id: list.id, title: titleName.value, icon: getClickedIcon };
       setProjects(projectValues, list.id);
       resetForm('add-project-form');
       resetIcons();
-      counter += 1;
     });
   };
 
   const displayProjectInCard = () => {
     const projectsArea = document.getElementById('all-projects');
+    const allTasksContent = document.getElementById('all-tasks-content');
     projectsArea.addEventListener('click', (e) => {
       if (e.target.classList.contains('list-group-item')) {
         const { id } = e.target;
+        localStorage.setItem('displayProject', id)
+        document.getElementById('add-task-button').className = `btn btn-sm btn-primary ${id}`;
         hideAndDisplayElement(id, '.all-project-content .list-group-item');
         const projectTitle = document.getElementById('project-title');
         projectTitle.innerHTML = e.target.innerHTML;
-        document.getElementById('add-task-button').className = `btn btn-sm btn-primary ${id}`;
+
+        const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+        const getProjectTasks = Object.entries(getAllTasks).filter((item) => {
+          const value = item[1];
+          return value.id === id;
+        });
+
+        let list = '';
+        getProjectTasks.forEach((ele) => {
+          const value = ele[1];
+          const key = ele[0];
+          list += `
+          <li class="list-group-item ${value.task_radio}-border">
+            <h6 class="card-title mb-1">${value.task_name} &nbsp;&nbsp;<small
+                class="task-date">${value.task_date}</small> </h6>
+            <small class="card-text">${value.task_description}
+            </small>
+            <div class="task-icons" id="task-icons">
+              <i class="far fa-edit edit text-info" id="edit-${key}"></i>
+              <i class="far fa-trash-alt delete text-danger" id="delete-${key}"></i>
+            </div>
+          </li>`;
+        });
+        allTasksContent.innerHTML = list;
       }
     });
   };
@@ -95,24 +128,27 @@ const UI = () => {
     return appendTask;
   };
 
-
   const addTaskToProject = (getFormInput) => {
     const addTaskBtn = document.getElementById('add-task-button');
     const taskContainer = document.getElementById('all-tasks-content');
     const formInputs = document.querySelectorAll('#add-task-form .form-control');
     const formButtons = document.getElementsByName('priorityRadios');
 
-    let counter = 1;
+
     addTaskBtn.addEventListener('click', () => {
+      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+      const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
+
       const buttonId = addTaskBtn.className.split(' ')[3];
       const getinputs = getFormInput(formInputs, formButtons);
       const values = createTaskContent(getinputs);
       getinputs.id = buttonId;
-      setTasks(getinputs, `${counter}`);
-      console.log(counter)
+      setTasks(getinputs, length);
+      console.log(localStorage.getItem('allTasks'));
+
       resetForm('add-task-form');
       taskContainer.append(values);
-      counter += 1;
+
     });
   };
 
