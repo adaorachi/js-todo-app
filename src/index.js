@@ -12,6 +12,8 @@ ui.addTaskToProject(logic.getTaskValues);
 ui.validateForm();
 ui.toggleAllProject();
 ui.toggleTaskForm();
+ui.deleteTask();
+ui.editTask();
 
 const localStorage = LocalStorage();
 localStorage.getDefault();

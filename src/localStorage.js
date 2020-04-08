@@ -30,14 +30,21 @@ const LocalStorage = () => {
       allProjectsList.append(list);
     });
 
+    if (localStorage.getItem('displayProject') === null) {
+      localStorage.setItem('displayProject', 'project-0');
+    }
 
+    if (localStorage.getItem('allTasks') === null) {
+      const infoTasks = {};
+      localStorage.setItem('allTasks', JSON.stringify(infoTasks));
+    }
     const getClickedProject = localStorage.getItem('displayProject');
     const allTasksContent = document.getElementById('all-tasks-content');
     document.getElementById('add-task-button').className = `btn btn-sm btn-primary ${getClickedProject}`;
     const projectTitle = document.getElementById('project-title');
     projectTitle.innerHTML = document.getElementById(getClickedProject).innerHTML;
 
-    //change color
+    // change color
     const array = document.querySelectorAll('.all-project-content .list-group-item');
     array.forEach((item) => {
       if (item.id === getClickedProject) {
@@ -70,11 +77,9 @@ const LocalStorage = () => {
           </li>`;
     });
     allTasksContent.innerHTML = list;
-  }
+  };
 
   return { getDefault };
 };
 
 module.exports = LocalStorage;
-
-
