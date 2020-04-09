@@ -6,20 +6,22 @@ A to-do list app built with JavaScript
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Author](#author)
+* [AuthorS](#author)
 * [Show your Support](#show-your-support)
 * [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-In this project, I was requested to create a Restaurant Page using Webpack and  Javascript's modules for creating the HTML content.
+In this project, we create a Todo List app using Javascript. The users can create a project, and assign to it their tasks. The tasks can include title, description, date, and priority. 
 
-Live version of the project: [Live version](https://rawcdn.githack.com/mcastorena0316/restaurantpage-js/4df14b90b82c44a10811aa1ae0dc997492b0216a/dist/index.html)
+We are using the knowledge acquired about: Objects, Factory Function, and  Module Patterns. Also, we implement the concepts of Single Responsibility and Tightly Coupled Objects.
 
-Project Link: [RESTAURANTPAGE-JS](https://github.com/adaorachi/js-todo-app)
+Live version of the project: [Live version]()
 
-Link for project specifications: [Odin-Project](https://www.theodinproject.com/courses/javascript/lessons/restaurant-page)
+Project Link: [JS-TODO-APP](https://github.com/adaorachi/js-todo-app)
+
+Link for project specifications: [Odin-Project](https://www.theodinproject.com/courses/javascript/lessons/todo-list)
 
 ### Built With
 
