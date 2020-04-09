@@ -226,6 +226,8 @@ const UI = () => {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('delete')) {
         const deleteID = e.target.id;
+        // eslint-disable-next-line no-alert
+        // eslint-disable-next-line no-restricted-globals
         const confirmDelete = confirm('Are you sure you want to delete?');
         if (confirmDelete) {
           document.getElementById(deleteID).parentElement.parentElement.remove();
@@ -237,7 +239,6 @@ const UI = () => {
       }
     });
   };
-
 
   const modifyTask = (listid) => {
     const list = document.querySelectorAll(`#task-list-${listid} .form-control`);
@@ -283,7 +284,10 @@ const UI = () => {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('edit')) {
         const editID = e.target.id;
-        const taskId = editID.split('-')[1];
+        const id = editID.split('-')[1];
+        let listID = document.getElementById(`task-list-${id}`);
+        document.getElementById(`complete-task-${taskId}`).style.display = 'none';
+
         const [title, date, description] = [`task-title-${taskId}`, `task-date-${taskId}`, `task-description-${taskId}`];
         const editTitle = document.getElementById(title).innerText;
         document.getElementById(title).innerHTML = `<input type='text' maxlength="30" value="${editTitle}" class="form-control">`;
@@ -332,7 +336,6 @@ const UI = () => {
       }
     });
   };
-
 
   return {
     getProjectFromStore,
