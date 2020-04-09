@@ -1,5 +1,4 @@
 const Storage = () => {
-
   const setProjectToStore = (projectValues, id) => {
     const infoProjects = JSON.parse(localStorage.getItem('allProjects'));
     infoProjects[id] = projectValues;

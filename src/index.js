@@ -21,5 +21,6 @@ ui.validateForm();
 ui.deleteTask();
 ui.editTask();
 ui.completeTask();
+ui.getTasksFromStore();
 
 
