@@ -45,7 +45,11 @@ const Storage = () => {
   };
 
   return {
-    getDefault, setProjectToStore, setTaskToStore, setDefaultProjectToStore, getFilteredTaskFromStore,
+    getDefault,
+    setProjectToStore,
+    setTaskToStore,
+    setDefaultProjectToStore,
+    getFilteredTaskFromStore,
   };
 };
 

@@ -144,7 +144,7 @@
       </div>
     </main>
 
-    <!-- Modal -->
+    <!-- Project Modal -->
     <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -180,6 +180,68 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-sm button" id="add-project-btn" data-dismiss="modal" disabled>Add
               Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body edit-task" id="edit-task">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control-sm">Name</span>
+              </div>
+              <input type="text" class="form-control form-control-sm" placeholder="Task Name" maxlength="30"
+                class="form-control" data-id="task_name">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Note</span>
+              </div>
+              <textarea class="form-control form-control-sm" placeholder="Task Note"
+                data-id="task_description"></textarea>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control-sm">Date</span>
+              </div>
+              <input type="date" class="form-control form-control-sm" class="form-control" data-id="task_date">
+            </div>
+
+            <div class="task-radio-buttons d-flex justify-content-center">
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority1" value="red">
+                <label class="form-check-label" for="task-priority1">
+                  Priority 1 <i class="fas fa-flag text-danger"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority2"
+                  value="yellow">
+                <label class="form-check-label" for="task-priority2">
+                  Priority 2 <i class="fas fa-flag text-warning"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority3" value="blue">
+                <label class="form-check-label" for="task-priority3">
+                  Priority 3 <i class="fas fa-flag text-primary"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-sm button" id="confirm-edit-btn">Edit</button>
           </div>
         </div>
       </div>
