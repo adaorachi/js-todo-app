@@ -6,7 +6,7 @@ A to-do list app built with JavaScript
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [AuthorS](#author)
+* [Authors](#authors)
 * [Show your Support](#show-your-support)
 * [Acknowledgements](#acknowledgements)
 

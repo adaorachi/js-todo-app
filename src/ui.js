@@ -81,7 +81,7 @@ const UI = () => {
     displaySections();
   };
 
-  const getTasksFromStore = () => {
+  const displayAllTasks = () => {
     const getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
     const displayTasks = document.getElementById('display-tasks');
     let tasklist = '';
@@ -330,7 +330,7 @@ const UI = () => {
     geteditTaskValues,
     editTask,
     completeTask,
-    getTasksFromStore,
+    displayAllTasks,
   };
 };
 
