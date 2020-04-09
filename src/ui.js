@@ -80,6 +80,29 @@ const UI = () => {
     displaySections();
   };
 
+  const getTasksFromStore = () => {
+    const getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
+    const displayTasks = document.getElementById('display-tasks');
+    let tasklist = '';
+    Object.values(getAlltasks).forEach((item) => {
+      const projects = JSON.parse(localStorage.getItem('allProjects'));
+      const nameProject = projects[item.id].title;
+      const myDate = format(new Date(item.task_date), 'MM/dd/yyyy');
+      const currentDate = format(new Date(), 'MM/dd/yyyy');
+      const expiredDate = myDate < currentDate ? 'Task expired' : '';
+      tasklist += `
+      <li class="list-group-item ${item.task_radio}-border " id="task-list-">
+        <span>Project Name: <span<h6>${logic.capString(nameProject)}</h6>
+        <h6 class="card-title mb-1"><span>Task: </span><span id= "task-title-">${logic.capString(item.task_name)}</span> &nbsp;&nbsp;</h6> 
+        <span>Due Date: <span><span class="task-date" id="task-date-key}">${item.task_date} </span> <span> ${expiredDate}</span>
+        <h6 class="card-title mb-1">
+          <span>Description: </span><span class="card-text" id= "task-description-">${logic.capString(item.task_description)}</span>
+        </h6>
+    </li>`;
+      displayTasks.innerHTML = tasklist;
+    });
+  };
+
   const getProjectContents = () => {
     const addProjectButton = document.getElementById('add-project-btn');
     const titleName = document.getElementById('project-name');
@@ -346,6 +369,7 @@ const UI = () => {
     deleteTask,
     editTask,
     completeTask,
+    getTasksFromStore,
   };
 };
 

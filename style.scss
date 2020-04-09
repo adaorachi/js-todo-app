@@ -41,6 +41,13 @@ $primary-color2: #2ea2fd;
   .main {
     transform: translateY(50px);
     
+    .all-tasks {
+      .display-tasks {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+
     .side-bar {
       background-color: #f7f7f7;
       border-right: 1px solid #ddd;
@@ -168,6 +175,50 @@ $primary-color2: #2ea2fd;
 
         }
       }
+    }
+ 
+    .all-tasks {
+      margin: 0 auto;
+      width: 50%;
+      margin-top: 2rem;
+       
+          .list-group-item {
+            position: relative;
+            border-radius: 10px;
+            border-top: 0;
+            box-shadow: 0px 0px 4px #c1c1c1;
+            padding: 0.2rem 0.9rem;
+            text-align: left;
+            margin-bottom: 2rem;
+  
+            .toggle-complete-task {
+              cursor: pointer;
+            }
+  
+            &.completed {
+              box-shadow: none;
+              background: #eee;
+            }
+  
+            &.red-border {
+              border-left: 6px solid #dc3545;
+            }
+  
+            &.blue-border {
+              border-left: 6px solid #007bff;
+            }
+  
+            &.yellow-border {
+              border-left: 6px solid #ffc107;
+            }
+  
+            .task-icons {
+              position: absolute;
+              top: 0;
+              right: 10px;
+            }
+        }
+    
     }
 
     #add-project-modal-btn {
