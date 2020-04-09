@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+// eslint-disable-next-line import/no-unresolved
 import { format } from 'date-fns';
 import Storage from './localStorage';
 import Logic from './logic';
