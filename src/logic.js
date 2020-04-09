@@ -20,6 +20,25 @@ const Logic = () => {
     return getInputValues;
   };
 
+  const getEditedTaskValue = (inputs, radioButtons) => {
+    const formInputs = document.querySelectorAll(inputs);
+    const formButtons = document.getElementsByName(radioButtons);
+    const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+
+    const getInputValues = {};
+    formInputs.forEach((input) => {
+      getInputValues[input.getAttribute('data-id')] = input.value;
+    });
+
+    formButtons.forEach((button) => {
+      if (button.checked) {
+        getInputValues.task_radio = button.value;
+      }
+    });
+
+    return getInputValues;
+  };
+
   const hideAndDisplayElement = (ele, arrayList) => {
     const array = document.querySelectorAll(arrayList);
     array.forEach((item) => {
@@ -35,7 +54,7 @@ const Logic = () => {
     return string.replace(/^\w/, c => c.toUpperCase());
   };
 
-  return { getTaskValues, hideAndDisplayElement, capString };
+  return { getTaskValues, getEditedTaskValue, hideAndDisplayElement, capString };
 };
 
 export default Logic;

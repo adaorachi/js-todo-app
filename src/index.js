@@ -13,6 +13,7 @@ storage.getDefault();
 const ui = UI();
 
 ui.getProjectContents();
+ui.geteditTaskValues();
 // ui.displaySections();
 ui.getProjectFromStore();
 ui.displayProjectInCard();

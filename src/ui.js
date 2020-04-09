@@ -144,7 +144,7 @@ const UI = () => {
               </small>
             </div>
             <div class="task-icons" id="task-icons">
-              <i class="far fa-edit edit text-info" id="edit-${key}"></i>
+              <i class="far fa-edit edit text-info" id="edit-${key}" data-toggle="modal" data-target="#editModal"></i>
               <i class="far fa-trash-alt delete text-danger" id="delete-${key}"></i>
             </div>
             <div id="priority-btn">
@@ -238,86 +238,44 @@ const UI = () => {
     });
   };
 
+  const editTask = () => {
+    const editBtn = document.getElementById('confirm-edit-btn');
+    editBtn.addEventListener('click', () => {
+      const id = document.getElementById('confirm-edit-btn').className.split(' ')[3];
+      const editedTaskValue = logic.getEditedTaskValue('#edit-task .form-control', 'priorityRadiosEdit');
 
-  const modifyTask = (listid) => {
-    const list = document.querySelectorAll(`#task-list-${listid} .form-control`);
-    const editButton = document.getElementById('confirm-edit-btn');
-    editButton.addEventListener('click', () => {
-      const newValues = {};
-      list.forEach((input, key) => {
-        newValues[key] = input.value;
-      });
-      const radioButtons = document.querySelectorAll('.radio-input');
-      radioButtons.forEach((button) => {
-        if (button.checked) {
-          newValues.task_radio = button.value;
-        }
-      });
-      const changedList = document.getElementById(`task-list-${listid}`);
-      changedList.className = `list-group-item ${newValues.task_radio}-border`;
-      changedList.innerHTML = ` 
-      <h6 class="card-title mb-1"><span id= "task-title-${listid}">${newValues['0']}</span> &nbsp;&nbsp;<small
-          class="task-date" id="task-date-${listid}">${newValues['1']}</small> </h6>
-      <small class="card-text" id= "task-description-${listid}">${newValues['2']}
-      </small>
-      <div class="task-icons" id="task-icons">
-        <i class="far fa-edit edit text-info" id="edit-${listid}"></i>
-        <i class="far fa-trash-alt delete text-danger" id="delete-${listid}"></i>
-      </div>
-      <div id="priority-btn">
-      </div>`;
+      const currentInput = [`task-title-${id}`, `task-description-${id}`, `task-date-${id}`, `task-list-${id}`];
 
       const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
-      getAllTasks[listid] = {
-        task_name: newValues['0'],
-        task_date: newValues['1'],
-        task_description: newValues['2'],
-        task_radio: newValues.task_radio,
-        id: `project-${listid}`,
-      };
+
+      Object.entries(editedTaskValue).forEach((input, val) => {
+        const key = input[0];
+        const value = input[1];
+        getAllTasks[id][key] = value;
+        if (key === 'task_radio') {
+          document.getElementById(currentInput[val]).className = `list-group-item ${value}-border`;
+        } else {
+          document.getElementById(currentInput[val]).innerText = value;
+        }
+      });
       localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
     });
   };
 
-  const editTask = () => {
+  const geteditTaskValues = () => {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('edit')) {
         const editID = e.target.id;
-        const taskId = editID.split('-')[1];
-        const [title, date, description] = [`task-title-${taskId}`, `task-date-${taskId}`, `task-description-${taskId}`];
-        const editTitle = document.getElementById(title).innerText;
-        document.getElementById(title).innerHTML = `<input type='text' maxlength="30" value="${editTitle}" class="form-control">`;
-        const editDate = document.getElementById(date).innerText;
-        document.getElementById(date).innerHTML = `<input type= 'date' value="${editDate}" class="form-control">`;
-        const editDescription = document.getElementById(description).innerText;
-        document.getElementById(description).innerHTML = `<input type= 'text' value="${editDescription}" class= "form-control">`;
-        const priorityContainer = document.getElementById('priority-btn');
-        priorityContainer.innerHTML = `
-        <div class="form-check">
-          <input class="radio-input" name="priorityRadios" type="radio" id="task-priority1"
-            value="red">
-          <label class="form-check-label" for="task-priority1">
-            Priority 1 <i class="fas fa-flag text-danger"></i>
-          </label>
-      </div>
-      <div class="form-check">
-        <input class="radio-input" name="priorityRadios" type="radio" id="task-priority2"
-          value="yellow">
-        <label class="form-check-label" for="task-priority2">
-          Priority 2 <i class="fas fa-flag text-warning"></i>
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="radio-input" name="priorityRadios" type="radio" id="task-priority3"
-          value="blue">
-        <label class="form-check-label" for="task-priority3">
-          Priority 3 <i class="fas fa-flag text-primary"></i>
-        </label>
-      </div> 
-      <div> 
-        <button class="btn btn-sm button" id="confirm-edit-btn"> Edit </button>
-      </div>`;
-        modifyTask(taskId);
+        const id = editID.split('-')[1];
+        const editBtn = document.getElementById('confirm-edit-btn');
+        editBtn.className = `btn btn-sm button ${id}`;
+        const [title, date, description] = [`task-title-${id}`, `task-date-${id}`, `task-description-${id}`];
+        const currentTaskValue = [document.getElementById(title).innerText, document.getElementById(description).innerText, document.getElementById(date).innerText];
+
+        const allEditedValue = document.querySelectorAll('#edit-task .form-control');
+        allEditedValue.forEach((item, val) => {
+          item.value = currentTaskValue[val];
+        });
       }
     });
   };
@@ -341,6 +299,7 @@ const UI = () => {
     validateForm,
     getProjectContents,
     deleteTask,
+    geteditTaskValues,
     editTask,
     completeTask,
   };
