@@ -83,16 +83,18 @@ const UI = () => {
   };
 
   const displayAllTasks = () => {
-    const getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
+    let getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
+    getAlltasks = getAlltasks === null ? {} : getAlltasks;
     const displayTasks = document.getElementById('display-tasks');
     let tasklist = '';
-    Object.values(getAlltasks).forEach((item) => {
-      const projects = JSON.parse(localStorage.getItem('allProjects'));
-      const nameProject = projects[item.id].title;
-      const myDate = format(new Date(item.task_date), 'MM/dd/yyyy');
-      const currentDate = format(new Date(), 'MM/dd/yyyy');
-      const expiredDate = myDate < currentDate ? 'Task expired' : '';
-      tasklist += `
+    if (getAlltasks.length > 0) {
+      Object.values(getAlltasks).forEach((item) => {
+        const projects = JSON.parse(localStorage.getItem('allProjects'));
+        const nameProject = projects[item.id].title;
+        const myDate = format(new Date(item.task_date), 'MM/dd/yyyy');
+        const currentDate = format(new Date(), 'MM/dd/yyyy');
+        const expiredDate = myDate < currentDate ? 'Task expired' : '';
+        tasklist += `
       <li class="list-group-item ${item.task_radio}-border " id="task-list-">
         <span>Project Name: <span<h6>${logic.capString(nameProject)}</h6>
         <h6 class="card-title mb-1"><span>Task: </span><span id= "task-title-">${logic.capString(item.task_name)}</span> &nbsp;&nbsp;</h6> 
@@ -101,8 +103,11 @@ const UI = () => {
           <span>Description: </span><span class="card-text" id= "task-description-">${logic.capString(item.task_description)}</span>
         </h6>
     </li>`;
-      displayTasks.innerHTML = tasklist;
-    });
+      });
+    } else {
+      tasklist = '<p class="text-muted no-task">You have no tasks!</p>';
+    }
+    displayTasks.innerHTML = tasklist;
   };
 
   const getProjectContents = () => {
@@ -150,6 +155,7 @@ const UI = () => {
     const allTasksContent = document.getElementById('all-tasks-content');
     let lists = '';
     if (getProjectTasks.length > 0) {
+      lists += '<small><em>Click the task card to complete!</em></small>';
       lists += createTaskInfo(getProjectTasks, id);
 
       getProjectTasks.forEach((ele) => {
