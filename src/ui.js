@@ -81,35 +81,35 @@ const UI = () => {
     projectsArea.addEventListener('click', (e) => {
       if (e.target.classList.contains('list-group-item')) {
         const { id } = e.target;
-        localStorage.setItem('displayProject', id)
+        localStorage.setItem('displayProject', id);
         document.getElementById('add-task-button').className = `btn btn-sm btn-primary ${id}`;
         hideAndDisplayElement(id, '.all-project-content .list-group-item');
         const projectTitle = document.getElementById('project-title');
         projectTitle.innerHTML = e.target.innerHTML;
 
-        const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
-        const getProjectTasks = Object.entries(getAllTasks).filter((item) => {
-          const value = item[1];
-          return value.id === id;
-        });
+        // const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+        // const getProjectTasks = Object.entries(getAllTasks).filter((item) => {
+        //   const value = item[1];
+        //   return value.id === id;
+        // });
 
-        let list = '';
-        getProjectTasks.forEach((ele) => {
-          const value = ele[1];
-          const key = ele[0];
-          list += `
-          <li class="list-group-item ${value.task_radio}-border">
-            <h6 class="card-title mb-1">${value.task_name} &nbsp;&nbsp;<small
-                class="task-date">${value.task_date}</small> </h6>
-            <small class="card-text">${value.task_description}
-            </small>
-            <div class="task-icons" id="task-icons">
-              <i class="far fa-edit edit text-info" id="edit-${key}"></i>
-              <i class="far fa-trash-alt delete text-danger" id="delete-${key}"></i>
-            </div>
-          </li>`;
-        });
-        allTasksContent.innerHTML = list;
+        // let list = '';
+        // getProjectTasks.forEach((ele) => {
+        //   const value = ele[1];
+        //   const key = ele[0];
+        //   list += `
+        //   <li class="list-group-item ${value.task_radio}-border">
+        //     <h6 class="card-title mb-1">${value.task_name} &nbsp;&nbsp;<small
+        //         class="task-date">${value.task_date}</small> </h6>
+        //     <small class="card-text">${value.task_description}
+        //     </small>
+        //     <div class="task-icons" id="task-icons">
+        //       <i class="far fa-edit edit text-info" id="edit-${key}"></i>
+        //       <i class="far fa-trash-alt delete text-danger" id="delete-${key}"></i>
+        //     </div>
+        //   </li>`;
+        // });
+        // allTasksContent.innerHTML = list;
       }
     });
   };
