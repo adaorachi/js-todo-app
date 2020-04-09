@@ -1,6 +1,7 @@
 # js-todo-app
 A to-do list app built with JavaScript
 
+<div align="center"><img src="Images/todoist.jpg"></div>
 
 ## Table of Contents
 
@@ -17,7 +18,7 @@ In this project, we create a Todo List app using Javascript. The users can creat
 
 We are using the knowledge acquired about: Objects, Factory Function, and  Module Patterns. Also, we implement the concepts of Single Responsibility and Tightly Coupled Objects.
 
-Live version of the project: [Live version]()
+Live version of the project: [Live version](https://raw.githack.com/adaorachi/js-todo-app/alltasks-branch/index.html)
 
 Project Link: [JS-TODO-APP](https://github.com/adaorachi/js-todo-app)
 
