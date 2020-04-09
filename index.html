@@ -30,18 +30,21 @@
           <div class="col-2">
             <div class="side-bar">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item get-links" id="get-all-tasks">
                   <i class="fas fa-tasks"></i>
                   &nbsp; All Tasks
                 </li>
-                <li class="list-group-item" id="display-all-project-btn">
+                <li class="list-group-item" id="display-all-project-btn" data-toggle="collapse"
+                  data-target="#collapseProject" aria-expanded="false" aria-controls="collapseProject">
                   <i class="fas fa-project-diagram"></i> &nbsp;
                   <span>All Projects</span>
                   <i class="fas fa-sort-down"></i>
                 </li>
-                <div class="card card-body all-project-content" id="all-project-content">
-                  <ul class="list-group list-group-flush" id="all-projects">
-                  </ul>
+                <div class="collapse show" id="collapseProject">
+                  <div class="card card-body all-project-content scroll-bar">
+                    <ul class="list-group h-100" id="all-projects">
+                    </ul>
+                  </div>
                 </div>
 
                 <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal"
@@ -53,78 +56,87 @@
             </div>
           </div>
           <div class="col-10">
-            <div class="project-card">
+            <section class="project-card">
               <div class="card text-center">
-                <div class="card-header" id="project-title">
-                  General Projects <span class="fas fa-briefcase icon"></span>
+                <div class="card-header project-title" id="project-title">
+
                 </div>
-                <div class="card-body">
+                <div class="card-body all-task-content-card scroll-bar">
                   <ul class="list-group list-group-flush all-tasks-content" id="all-tasks-content">
 
                   </ul>
                 </div>
                 <div class="card-footer text-muted">
-                  <button type="button" class="btn btn-sm button add-task-form-btn" id="add-task-form-btn">Add Task <i
-                      class="fas fa-sort-down"></i></button>
-                  <form id="add-task-form">
-                    <div id="add-task-inputs" class="add-task-inputs hide">
-                      <div class="row no-gutters">
-                        <div class="col-7 px-2">
-                          <div class="form-group">
-                            <label for="task-name">Title </label>
-                            <input type="text" class="form-control form-control-sm" id="task_name">
-                          </div>
-                        </div>
-                        <div class="col-5 px-2">
-                          <div class="form-group">
-                            <label for="task-date">Date </label>
-                            <input type="date" class="form-control form-control-sm" id="task_date">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-7 px-2">
-                          <div class="form-group">
-                            <label for="task-description">Description</label>
-                            <textarea class="form-control form-control-sm" id="task_description"></textarea>
-                          </div>
+                  <button class="btn btn-sm button add-task-form-btn" type="button" data-toggle="collapse"
+                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+                    id="add-task-form-btn">
+                    Add Task <i class="fas fa-sort-down"></i>
+                  </button>
+                </div>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <form id="add-task-form">
+                      <div id="add-task-inputs" class="add-task-inputs">
 
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text form-control-sm">Title</span>
+                          </div>
+                          <input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Title"
+                            id="task_name">
                         </div>
-                        <div class="col-5">
-                          <div class="form-check">
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Note</span>
+                          </div>
+                          <textarea class="form-control form-control-sm" id="task_description"
+                            placeholder="What do you have in mind?"></textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text form-control-sm">Date</span>
+                          </div>
+                          <input type="date" class="form-control form-control-sm" id="task_date">
+                        </div>
+
+                        <div class="task-radio-buttons d-flex justify-content-center">
+                          <div class="form-check mx-2">
                             <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority1"
                               value="red">
                             <label class="form-check-label" for="task-priority1">
                               Priority 1 <i class="fas fa-flag text-danger"></i>
                             </label>
                           </div>
-                          <div class="form-check">
+                          <div class="form-check mx-2">
                             <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority2"
                               value="yellow">
                             <label class="form-check-label" for="task-priority2">
                               Priority 2 <i class="fas fa-flag text-warning"></i>
                             </label>
                           </div>
-                          <div class="form-check">
+                          <div class="form-check mx-2">
                             <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority3"
                               value="blue">
                             <label class="form-check-label" for="task-priority3">
                               Priority 3 <i class="fas fa-flag text-primary"></i>
                             </label>
                           </div>
-
                         </div>
-
+                        <button type="button" class="task-button">
+                          <i class="fas fa-plus-circle project-0" id="add-task-button"></i>
+                        </button>
                       </div>
-                      <button type="button" class="btn btn-sm btn-primary project-0" id="add-task-button">Add
-                        Task</button>
-                    </div>
 
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-
-            </div>
+            </section>
+            <section class="all-tasks">
+              memem
+            </section>
           </div>
         </div>
       </div>
@@ -143,8 +155,10 @@
           </div>
           <div class="modal-body">
             <form id="add-project-form">
-              <div class="form-group">
-                <label for="project-name">Project Name</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text form-control-sm">Project Name</span>
+                </div>
                 <input type="text" class="form-control form-control-sm" id="project-name"
                   placeholder="Enter Project Name">
               </div>
@@ -156,7 +170,7 @@
                   <i class="fas fa-shopping-cart icon" id="grocery"></i>
                   <i class="fas fa-users icon" id="event"></i>
                   <i class="fas fa-plane-departure icon" id="trip"></i>
-                  <i class="fas fa-briefcase icon" id="others"></i>
+                  <i class="fas fa-list-alt icon" id="others"></i>
                 </div>
               </div>
             </form>

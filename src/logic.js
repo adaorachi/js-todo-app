@@ -1,28 +1,41 @@
 const Logic = () => {
-  const getTaskValues = (array, radioButtons) => {
+  const getTaskValues = (inputs, radioButtons, elemid) => {
+    const formInputs = document.querySelectorAll(inputs);
+    const formButtons = document.getElementsByName(radioButtons);
+
     const getInputValues = {};
-    array.forEach((input) => {
+    formInputs.forEach((input) => {
       getInputValues[input.id] = input.value;
     });
 
-    radioButtons.forEach((button) => {
+    formButtons.forEach((button) => {
       if (button.checked) {
         getInputValues.task_radio = button.value;
       }
     });
+
+    getInputValues.id = elemid;
+    getInputValues.completed = false;
+
     return getInputValues;
   };
 
-  // const setProjects = (id) => {
-  //   if (localStorage.getItem('allProjects') === null) {
-  //     localStorage.setItem('allProjects', 'project-0');
-  //   } else {
-  //     const infoProjects = JSON.parse(localStorage.getItem('allProjects'));
-  //     infoProjects.push(id);
-  //     localStorage.setItem('allProjects', JSON.stringify(infoProjects));
-  //   }
-  // };
-  return { getTaskValues };
+  const hideAndDisplayElement = (ele, arrayList) => {
+    const array = document.querySelectorAll(arrayList);
+    array.forEach((item) => {
+      if (item.id === ele) {
+        item.classList.add('clicked');
+      } else {
+        item.classList.remove('clicked');
+      }
+    });
+  };
+
+  const capString = (string) => {
+    return string.replace(/^\w/, c => c.toUpperCase());
+  };
+
+  return { getTaskValues, hideAndDisplayElement, capString };
 };
 
-module.exports = Logic;
+export default Logic;

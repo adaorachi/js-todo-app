@@ -11,6 +11,7 @@ $primary-color2: #2ea2fd;
   border: none;
   outline: none;
   color: #fff;
+  font-size: 1.3rem;
   font-family: $font-header;
 
   &:hover {
@@ -41,43 +42,36 @@ $primary-color2: #2ea2fd;
     transform: translateY(50px);
     
     .side-bar {
-      background-color: rgb(250, 248, 248);
+      background-color: #f7f7f7;
       border-right: 1px solid #ddd;
       height: 100vh;
       padding-top: 3rem;
+      box-shadow: 2px 2px 3px #eee;
 
       .list-group-item {
         background-color: transparent;
-        cursor: pointer;
         padding: .75rem 1rem;
         font-family: $font-para;
         font-weight: bold;
         font-size: 0.9rem;
+        color: #555;
+        cursor: pointer;
       }
 
       .all-project-content {
         height: 15rem;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        margin: 0 1rem 1rem;
-        padding: 0;
-        transition: height 650ms;
-
-        &.hide {
-          height: 0;
-          margin: 0;
-          opacity: 0;
-          border: 0;
-          padding: 0;
-        }
 
         .list-group-item {
           padding: .75rem .8rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          border: 1px solid #eee;
+        }
+      }
 
-          &:hover,
+      .get-links {
+        &:hover,
           &.clicked  {
             background-color: #eee;
           } 
@@ -85,30 +79,57 @@ $primary-color2: #2ea2fd;
           &.clicked {
             color: $primary-color2;
           }
-        }
-       
       }
     }
 
     .project-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 45%;
+      margin: 2rem auto;
+
+      .no-task {
+        font-family: $font-header;
+        font-size: 1.4rem;
+      }
+
+      .task-info {
+        border: 1px solid #eee;
+        padding: 0.2rem 0.5rem;
+        border-radius: 20px;
+      }
+
+      .project-title {
+        margin: 1rem;
+        background: linear-gradient(to bottom, #f7f7f7, #eee);
+        color: $primary-color2;
+        text-transform: uppercase;
+        font-weight: bolder;
+      }
 
       .add-task-inputs {
-        height: 220px;
-        transition: height 650ms;
+        .task-button {
+          background: transparent;
+          border: none;
+          outline: none;
+          margin-top: 1rem;
 
-        &.hide {
-          height: 0;
-          margin: 0;
-          opacity: 0;
-          border: 0;
-          padding: 0;
+          i {
+            font-size: 3rem;
+            color: $primary-color2;
+
+            &:hover {
+              color: #2ea2fdb3;
+            }
+          }
         }
       }
 
+      .all-task-content-card {
+        height: 20rem;
+      }
+
       .all-tasks-content {
+        height: 10rem;
+
         .list-group-item {
           position: relative;
           border-radius: 10px;
@@ -117,6 +138,15 @@ $primary-color2: #2ea2fd;
           padding: 0.2rem 0.9rem;
           text-align: left;
           margin-bottom: 2rem;
+
+          .toggle-complete-task {
+            cursor: pointer;
+          }
+
+          &.completed {
+            box-shadow: none;
+            background: #eee;
+          }
 
           &.red-border {
             border-left: 6px solid #dc3545;
@@ -148,6 +178,46 @@ $primary-color2: #2ea2fd;
         font-size: 1rem;
       }
     }
+
+    .scroll-bar {
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  
+    .scroll-bar::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F5F5F5;
+    }
+  
+    .scroll-bar::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #F5F5F5;
+      border-radius: 6px;
+    }
+  
+    .scroll-bar::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background-image: linear-gradient(to left bottom, $primary_color1, $primary_color2);
+    }
+  
+    .scroll-bar::-webkit-scrollbar-button {
+      background-color: transparent;
+    }
+  
+    .scroll-bar::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+  
+  }
+
+  input,
+  textarea {
+    border: 1px solid #2ea1fc;
+    border-radius: 20px;
+  }
+
+  .input-group-text {
+    font-size: 0.875rem;
   }
 
   .select-icons {
@@ -170,11 +240,10 @@ $primary-color2: #2ea2fd;
         color:transparent;
         -webkit-background-clip: text;
         background-clip: text;
-        transition: box-shadow 200ms;
       }
 
       &.clicked {
-        animation: move forwards 300ms ease-in-out;
+        animation: move forwards 50ms ease-in-out;
       }
 
       @keyframes move {
