@@ -1,8 +1,8 @@
-const Task = (taskName, taskDate, taskDescription, taskRadio, id, completed) => {
-  const getName = () => taskName;
-  const getDate = () => taskDate;
-  const getDescription = () => taskDescription;
-  const getPriority = () => taskRadio;
+const Task = (title, dueDate, description, priority, id, completed) => {
+  const getName = () => title;
+  const getDate = () => dueDate;
+  const getDescription = () => description;
+  const getPriority = () => priority;
   const getId = () => id;
   const taskCompleted = () => completed;
 
