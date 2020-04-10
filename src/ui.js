@@ -212,14 +212,14 @@ const UI = () => {
       const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
       const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
       const buttonId = addTaskBtn.className.split(' ')[2];
-      const newProject = logic.createNewTask();
+      const newTask = logic.createNewTask();
       const getinputs = {
-        completed: newProject.taskCompleted(),
-        task_name: newProject.getName(),
-        task_description: newProject.getDescription(),
-        task_date: newProject.getDate(),
-        task_radio: newProject.getPriority(),
-        id: newProject.getId(),
+        completed: newTask.taskCompleted(),
+        task_name: newTask.getName(),
+        task_description: newTask.getDescription(),
+        task_date: newTask.getDate(),
+        task_radio: newTask.getPriority(),
+        id: newTask.getId(),
       };
       // const getinputs = logic.getTaskValues('#add-task-form .form-control',
       // 'priorityRadios', buttonId);
