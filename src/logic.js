@@ -1,25 +1,48 @@
+import Task from './task';
+
 const Logic = () => {
-  const getTaskValues = (inputs, radioButtons, elemid) => {
-    const formInputs = document.querySelectorAll(inputs);
-    const formButtons = document.getElementsByName(radioButtons);
+  const createNewTask = () => {
+    const tName = document.querySelectorAll('#task_name')[0].value;
+    const tDescription = document.querySelectorAll('#task_description')[0].value;
+    const tDate = document.querySelectorAll('#task_date')[0].value;
+    const tID = document.getElementById('add-task-button').className.split(' ')[2];
+    const completedTask = false;
+    let checkedButton = ' ';
 
-    const getInputValues = {};
-    formInputs.forEach((input) => {
-      getInputValues[input.id] = input.value;
-    });
-
+    const formButtons = document.getElementsByName('priorityRadios');
     formButtons.forEach((button) => {
       if (button.checked) {
-        getInputValues.task_radio = button.value;
+        checkedButton = button.value;
       }
     });
 
-    getInputValues.id = elemid;
-    getInputValues.completed = false;
+    const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
 
-    return getInputValues;
+    return project;
+
+    // const getTaskValues = (inputs, radioButtons, elemid) => {
+    //   const formInputs = document.querySelectorAll(inputs);
+    //   const formButtons = document.getElementsByName(radioButtons);
+
+    // const getInputValues = {};
+    // formInputs.forEach((input) => {
+
+    //   getInputValues[input.id] = input.value;
+    //   console.log(getInputValues)
+    // });
+
+    // formButtons.forEach((button) => {
+    //   if (button.checked) {
+    //     getInputValues.task_radio = button.value;
+    //   }
+    // });
+
+    // getInputValues.id = elemid;
+    // getInputValues.completed = false;
+
+  // return getInputValues;
+  // };
   };
-
   const getEditedTaskValue = (inputs, radioButtons) => {
     const formInputs = document.querySelectorAll(inputs);
     const formButtons = document.getElementsByName(radioButtons);
@@ -53,7 +76,7 @@ const Logic = () => {
   const elementText = (ele) => document.getElementById(ele).innerText;
 
   return {
-    getTaskValues,
+    createNewTask,
     getEditedTaskValue,
     hideAndDisplayElement,
     capString,
