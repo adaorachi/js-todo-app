@@ -41,11 +41,7 @@ const Storage = () => {
     });
   };
 
-  const getDefault = () => {
-  };
-
   return {
-    getDefault,
     setProjectToStore,
     setTaskToStore,
     setDefaultProjectToStore,

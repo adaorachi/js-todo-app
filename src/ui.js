@@ -33,8 +33,37 @@ const UI = () => {
     });
   };
 
+  const displayAllTasksInTab = () => {
+    const getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
+    const getAlltasksValues = getAlltasks === null ? {} : Object.values(getAlltasks);
+    const displayTasks = document.getElementById('display-tasks');
+    let tasklist = '';
+    if (getAlltasksValues.length > 0) {
+      Object.values(getAlltasks).forEach((item) => {
+        const projects = JSON.parse(localStorage.getItem('allProjects'));
+        const nameProject = projects[item.id].title;
+        const myDate = format(new Date(item.task_date), 'MM/dd/yyyy');
+        const currentDate = format(new Date(), 'MM/dd/yyyy');
+        const expiredDate = myDate < currentDate ? 'Task expired' : '';
+        tasklist += `
+      <li class="list-group-item ${item.task_radio}-border " id="task-list-">
+        <span>Project Name: <span<h6>${logic.capString(nameProject)}</h6>
+        <h6 class="card-title mb-1"><span>Task: </span><span id= "task-title-">${logic.capString(item.task_name)}</span> &nbsp;&nbsp;</h6> 
+        <span>Due Date: <span><span class="task-date" id="task-date-key}">${item.task_date} </span> <span> ${expiredDate}</span>
+        <h6 class="card-title mb-1">
+          <span>Description: </span><span class="card-text" id= "task-description-">${logic.capString(item.task_description)}</span>
+        </h6>
+    </li>`;
+      });
+    } else {
+      tasklist = '<p class="text-muted no-task">You have no tasks!</p>';
+    }
+    displayTasks.innerHTML = tasklist;
+  };
+
   const getContentForDisplaySection = (getLink) => {
     if (getLink === 'get-all-tasks') {
+      displayAllTasksInTab();
       document.querySelector('.project-card').style.display = 'none';
       document.querySelector('.all-tasks').style.display = 'block';
     } else {
@@ -82,43 +111,14 @@ const UI = () => {
     displaySections();
   };
 
-  const displayAllTasks = () => {
-    let getAlltasks = JSON.parse(localStorage.getItem('allTasks'));
-    getAlltasks = getAlltasks === null ? {} : getAlltasks;
-    const displayTasks = document.getElementById('display-tasks');
-    let tasklist = '';
-    if (getAlltasks.length > 0) {
-      Object.values(getAlltasks).forEach((item) => {
-        const projects = JSON.parse(localStorage.getItem('allProjects'));
-        const nameProject = projects[item.id].title;
-        const myDate = format(new Date(item.task_date), 'MM/dd/yyyy');
-        const currentDate = format(new Date(), 'MM/dd/yyyy');
-        const expiredDate = myDate < currentDate ? 'Task expired' : '';
-        tasklist += `
-      <li class="list-group-item ${item.task_radio}-border " id="task-list-">
-        <span>Project Name: <span<h6>${logic.capString(nameProject)}</h6>
-        <h6 class="card-title mb-1"><span>Task: </span><span id= "task-title-">${logic.capString(item.task_name)}</span> &nbsp;&nbsp;</h6> 
-        <span>Due Date: <span><span class="task-date" id="task-date-key}">${item.task_date} </span> <span> ${expiredDate}</span>
-        <h6 class="card-title mb-1">
-          <span>Description: </span><span class="card-text" id= "task-description-">${logic.capString(item.task_description)}</span>
-        </h6>
-    </li>`;
-      });
-    } else {
-      tasklist = '<p class="text-muted no-task">You have no tasks!</p>';
-    }
-    displayTasks.innerHTML = tasklist;
-  };
-
   const getProjectContents = () => {
     const addProjectButton = document.getElementById('add-project-btn');
     const titleName = document.getElementById('project-name');
 
-    const getAllProjects = JSON.parse(localStorage.getItem('allProjects'));
-    const { length } = getAllProjects === null ? 0 : Object.keys(getAllProjects);
-
     clickedIcon();
     addProjectButton.addEventListener('click', () => {
+      const getAllProjects = JSON.parse(localStorage.getItem('allProjects'));
+      const { length } = Object.keys(getAllProjects);
       const listId = `project-${length}`;
       const projectValues = {
         id: listId, title: titleName.value, icon: getClickedIcon, completed: 0,
@@ -206,11 +206,26 @@ const UI = () => {
     createTaskContent(storeId);
   };
 
+  const addTaskToProject = () => {
+    const addTaskBtn = document.getElementById('add-task-button');
+    addTaskBtn.addEventListener('click', () => {
+      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+      const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
+      const buttonId = addTaskBtn.className.split(' ')[2];
+      const getinputs = logic.getTaskValues('#add-task-form .form-control', 'priorityRadios', buttonId);
+      storage.setTaskToStore(getinputs, length);
+      createTaskContent(buttonId);
+
+      resetForm('add-task-form');
+    });
+  };
+
   const completeTask = () => {
-    const storeId = localStorage.getItem('displayProject');
-    const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
-    const getAllProject = JSON.parse(localStorage.getItem('allProjects'));
     document.addEventListener('click', (e) => {
+      const storeId = localStorage.getItem('displayProject');
+      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+      const getAllProject = JSON.parse(localStorage.getItem('allProjects'));
+
       if (e.target.classList.contains('toggle-complete-task')) {
         const { id } = e.target;
         const parentList = document.getElementById(id).parentElement;
@@ -235,21 +250,6 @@ const UI = () => {
         localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
         localStorage.setItem('allProjects', JSON.stringify(getAllProject));
       }
-    });
-  };
-
-  const addTaskToProject = () => {
-    const addTaskBtn = document.getElementById('add-task-button');
-
-    addTaskBtn.addEventListener('click', () => {
-      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
-      const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
-      const buttonId = addTaskBtn.className.split(' ')[2];
-      const getinputs = logic.getTaskValues('#add-task-form .form-control', 'priorityRadios', buttonId);
-      storage.setTaskToStore(getinputs, length);
-      createTaskContent(buttonId);
-
-      resetForm('add-task-form');
     });
   };
 
@@ -337,7 +337,6 @@ const UI = () => {
     geteditTaskValues,
     editTask,
     completeTask,
-    displayAllTasks,
   };
 };
 
