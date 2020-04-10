@@ -221,8 +221,6 @@ const UI = () => {
         task_radio: newTask.getPriority(),
         id: newTask.getId(),
       };
-      // const getinputs = logic.getTaskValues('#add-task-form .form-control',
-      // 'priorityRadios', buttonId);
       storage.setTaskToStore(getinputs, length);
       createTaskContent(buttonId);
 

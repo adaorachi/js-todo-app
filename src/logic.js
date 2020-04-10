@@ -19,29 +19,6 @@ const Logic = () => {
     const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
 
     return project;
-
-    // const getTaskValues = (inputs, radioButtons, elemid) => {
-    //   const formInputs = document.querySelectorAll(inputs);
-    //   const formButtons = document.getElementsByName(radioButtons);
-
-    // const getInputValues = {};
-    // formInputs.forEach((input) => {
-
-    //   getInputValues[input.id] = input.value;
-    //   console.log(getInputValues)
-    // });
-
-    // formButtons.forEach((button) => {
-    //   if (button.checked) {
-    //     getInputValues.task_radio = button.value;
-    //   }
-    // });
-
-    // getInputValues.id = elemid;
-    // getInputValues.completed = false;
-
-  // return getInputValues;
-  // };
   };
   const getEditedTaskValue = (inputs, radioButtons) => {
     const formInputs = document.querySelectorAll(inputs);
