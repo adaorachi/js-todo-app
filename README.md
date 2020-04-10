@@ -18,7 +18,7 @@ In this project, we create a Todo List app using Javascript. The users can creat
 
 We are using the knowledge acquired about: Objects, Factory Function, and  Module Patterns. Also, we implement the concepts of Single Responsibility and Tightly Coupled Objects.
 
-Live version of the project: [Live version](https://raw.githack.com/adaorachi/js-todo-app/alltasks-branch/index.html)
+Live version of the project: [Live version](https://raw.githack.com/adaorachi/js-todo-app/todo-app/index.html)
 
 Project Link: [JS-TODO-APP](https://github.com/adaorachi/js-todo-app)
 
