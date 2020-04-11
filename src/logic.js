@@ -40,8 +40,8 @@ const Logic = () => {
     // getInputValues.id = elemid;
     // getInputValues.completed = false;
 
-  // return getInputValues;
-  // };
+    // return getInputValues;
+    // };
   };
   const getEditedTaskValue = (inputs, radioButtons) => {
     const formInputs = document.querySelectorAll(inputs);
