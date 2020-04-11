@@ -213,18 +213,26 @@ const UI = () => {
       const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
       const buttonId = addTaskBtn.className.split(' ')[2];
       const newTask = logic.createNewTask();
-      const getinputs = {
-        completed: newTask.taskCompleted(),
-        task_name: newTask.getName(),
-        task_description: newTask.getDescription(),
-        task_date: newTask.getDate(),
-        task_radio: newTask.getPriority(),
-        id: newTask.getId(),
-      };
-      storage.setTaskToStore(getinputs, length);
-      createTaskContent(buttonId);
+      if (newTask !== undefined) {
+        const getinputs = {
+          completed: newTask.taskCompleted(),
+          task_name: newTask.getName(),
+          task_description: newTask.getDescription(),
+          task_date: newTask.getDate(),
+          task_radio: newTask.getPriority(),
+          id: newTask.getId(),
+        };
+        storage.setTaskToStore(getinputs, length);
+        createTaskContent(buttonId);
+        resetForm('add-task-form');
+      } else {
+        const errorMessage = document.getElementById('error-show');
+        errorMessage.innerHTML = 'Please fill in all inputs!';
 
-      resetForm('add-task-form');
+        setTimeout(() => {
+          errorMessage.innerHTML = '';
+        }, 2000);
+      }
     });
   };
 
@@ -268,9 +276,16 @@ const UI = () => {
         // eslint-disable-next-line no-restricted-globals
         const confirmDelete = confirm('Are you sure you want to delete?');
         if (confirmDelete) {
-          document.getElementById(deleteID).parentElement.parentElement.remove();
+          let projectID;
           const taskId = deleteID.split('-')[1];
           const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+          if (document.getElementById(deleteID).parentElement.parentElement.classList.contains('completed')) {
+            projectID = (getAllTasks[taskId].id);
+            const allProjects = JSON.parse(localStorage.getItem('allProjects'));
+            allProjects[projectID].completed -= 1;
+            localStorage.setItem('allProjects', JSON.stringify(allProjects));
+          }
+          document.getElementById(deleteID).parentElement.parentElement.remove();
           delete getAllTasks[taskId];
           localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
         }

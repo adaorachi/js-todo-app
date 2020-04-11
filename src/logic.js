@@ -1,6 +1,7 @@
 import Task from './task';
 
 const Logic = () => {
+  // eslint-disable-next-line consistent-return
   const createNewTask = () => {
     const tName = document.querySelectorAll('#task_name')[0].value;
     const tDescription = document.querySelectorAll('#task_description')[0].value;
@@ -16,9 +17,11 @@ const Logic = () => {
       }
     });
 
-    const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
+    if (tDate !== '' && tDescription !== '' && tName !== '') {
+      const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
 
-    return project;
+      return project;
+    }
   };
   const getEditedTaskValue = (inputs, radioButtons) => {
     const formInputs = document.querySelectorAll(inputs);
