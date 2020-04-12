@@ -127,6 +127,7 @@
                         <button type="button" class="task-button">
                           <i class="fas fa-plus-circle project-0" id="add-task-button"></i>
                         </button>
+                        <div id="error-show" class="text-danger"></div>
                       </div>
 
                     </form>
@@ -197,6 +198,7 @@
             </button>
           </div>
           <div class="modal-body edit-task" id="edit-task">
+            <p class="text-danger text-center" id="edit-error-msg"></p>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text form-control-sm">Name</span>
@@ -220,21 +222,23 @@
 
             <div class="task-radio-buttons d-flex justify-content-center">
               <div class="form-check">
-                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority1" value="red">
-                <label class="form-check-label" for="task-priority1">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-red"
+                  value="red">
+                <label class="form-check-label" for="task-priority-red">
                   Priority 1 <i class="fas fa-flag text-danger"></i>
                 </label>
               </div>
               <div class="form-check">
-                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority2"
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-yellow"
                   value="yellow">
-                <label class="form-check-label" for="task-priority2">
+                <label class="form-check-label" for="task-priority-yellow">
                   Priority 2 <i class="fas fa-flag text-warning"></i>
                 </label>
               </div>
               <div class="form-check">
-                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority3" value="blue">
-                <label class="form-check-label" for="task-priority3">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-blue"
+                  value="blue">
+                <label class="form-check-label" for="task-priority-blue">
                   Priority 3 <i class="fas fa-flag text-primary"></i>
                 </label>
               </div>

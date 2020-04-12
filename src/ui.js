@@ -136,15 +136,18 @@ const UI = () => {
     const projects = JSON.parse(localStorage.getItem('allProjects'));
     const completedTasks = projects[id].completed;
     const info = `
-      <div class="d-flex justify-content-center mb-3">
-        <div class="task-info">
-          All Tasks <span class="badge badge-primary badge-pill">${getProjectTasks.length}</span>
-        </div>
-        <div class="task-info">
-          Completed <span class="badge badge-primary badge-pill" id="task-complete-info-${id}">${completedTasks}</span>
-        </div>
-        <div class="task-info">
-          Due <span class="badge badge-primary badge-pill">0</span>
+    <div id="task-badge-${id}">
+      <small class="pb-1"><em>Click the task card to complete!</em></small>
+        <div class="d-flex justify-content-center mb-3">
+          <div class="task-info">
+            All Tasks <span class="badge badge-primary badge-pill" id="task-size-info-${id}">${getProjectTasks.length}</span>
+          </div>
+          <div class="task-info">
+            Completed <span class="badge badge-primary badge-pill" id="task-complete-info-${id}">${completedTasks}</span>
+          </div>
+          <div class="task-info">
+            Due <span class="badge badge-primary badge-pill">0</span>
+          </div>
         </div>
       </div>`;
     return info;
@@ -155,7 +158,7 @@ const UI = () => {
     const allTasksContent = document.getElementById('all-tasks-content');
     let lists = '';
     if (getProjectTasks.length > 0) {
-      lists += '<small><em>Click the task card to complete!</em></small>';
+      lists += '';
       lists += createTaskInfo(getProjectTasks, id);
 
       getProjectTasks.forEach((ele) => {
@@ -167,11 +170,11 @@ const UI = () => {
         const completed = value.completed ? 'completed' : '';
 
         lists += `
-          <li class="list-group-item ${value.task_radio}-border ${completed}" id="task-list-${key}">
+          <li class="list-group-item ${value.task_radio}-border ${completed}" id="task-list-${key}" data-key="${value.id}">
             <div class="toggle-complete-task" id="complete-task-${key}" title="click to complete task">
               <h6 class="card-title mb-1"><span id= "task-title-${key}">${logic.capString(value.task_name)}</span> &nbsp;&nbsp;<small
                   class="task-date" id="task-date-${key}">${value.task_date}</small> </h6> <small>${expiredDate}</small>
-              <small class="card-text" id= "task-description-${key}">${logic.capString(value.task_description)}
+              <small class="card-text" id="task-description-${key}">${logic.capString(value.task_description)}
               </small>
             </div>
             <div class="task-icons" id="task-icons">
@@ -210,23 +213,37 @@ const UI = () => {
     const addTaskBtn = document.getElementById('add-task-button');
     addTaskBtn.addEventListener('click', () => {
       const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
-      const length = getAllTasks === null ? 0 : Object.keys(getAllTasks).length;
+      let length;
+      if (getAllTasks === null || Object.keys(getAllTasks).length === 0) {
+        length = '0';
+      } else {
+        const objSize = Object.keys(getAllTasks).length;
+        const getLastKey = Object.keys(getAllTasks)[objSize - 1];
+        length = `${parseInt(getLastKey, 10) + 1}`;
+      }
+
       const buttonId = addTaskBtn.className.split(' ')[2];
       const newTask = logic.createNewTask();
-      const getinputs = {
-        completed: newTask.taskCompleted(),
-        task_name: newTask.getName(),
-        task_description: newTask.getDescription(),
-        task_date: newTask.getDate(),
-        task_radio: newTask.getPriority(),
-        id: newTask.getId(),
-      };
-      // const getinputs = logic.getTaskValues('#add-task-form .form-control',
-      // 'priorityRadios', buttonId);
-      storage.setTaskToStore(getinputs, length);
-      createTaskContent(buttonId);
+      if (newTask !== undefined) {
+        const getinputs = {
+          completed: newTask.taskCompleted(),
+          task_name: newTask.getName(),
+          task_description: newTask.getDescription(),
+          task_date: newTask.getDate(),
+          task_radio: newTask.getPriority(),
+          id: newTask.getId(),
+        };
+        storage.setTaskToStore(getinputs, length);
+        createTaskContent(buttonId);
+        resetForm('add-task-form');
+      } else {
+        const errorMessage = document.getElementById('error-show');
+        errorMessage.innerHTML = 'Please fill in all inputs!';
 
-      resetForm('add-task-form');
+        setTimeout(() => {
+          errorMessage.innerHTML = '';
+        }, 2000);
+      }
     });
   };
 
@@ -263,6 +280,21 @@ const UI = () => {
     });
   };
 
+  const updateDOMOnDelete = (getAllTasks, getAllProjects, parent, parentData) => {
+    const taskSize = document.getElementById(`task-size-info-${parentData}`);
+    document.getElementById(`task-size-info-${parentData}`).innerText = parseInt(taskSize.innerText, 10) - 1;
+
+    if (parent.classList.contains('completed')) {
+      const taskComplete = document.getElementById(`task-complete-info-${parentData}`).innerText;
+      document.getElementById(`task-complete-info-${parentData}`).innerText = parseInt(taskComplete, 10) - 1;
+      getAllProjects[parentData].completed = parseInt(taskComplete, 10) - 1;
+    }
+
+    if (taskSize.innerText === '0') {
+      document.getElementById(`task-badge-${parentData}`).innerHTML = '<p class="text-muted no-task">You have no task!</p>';
+    }
+  };
+
   const deleteTask = () => {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('delete')) {
@@ -270,11 +302,19 @@ const UI = () => {
         // eslint-disable-next-line no-restricted-globals
         const confirmDelete = confirm('Are you sure you want to delete?');
         if (confirmDelete) {
-          document.getElementById(deleteID).parentElement.parentElement.remove();
+          const parent = document.getElementById(deleteID).parentElement.parentElement;
+          const parentData = parent.getAttribute('data-key');
           const taskId = deleteID.split('-')[1];
           const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+          const getAllProjects = JSON.parse(localStorage.getItem('allProjects'));
+
+          document.getElementById(deleteID).parentElement.parentElement.remove();
           delete getAllTasks[taskId];
           localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
+
+          updateDOMOnDelete(getAllTasks, getAllProjects, parent, parentData);
+
+          localStorage.setItem('allProjects', JSON.stringify(getAllProjects));
         }
       }
     });
@@ -286,21 +326,31 @@ const UI = () => {
       const id = document.getElementById('confirm-edit-btn').className.split(' ')[3];
       const editedTaskValue = logic.getEditedTaskValue('#edit-task .form-control', 'priorityRadiosEdit');
 
-      const currentInput = [`task-title-${id}`, `task-description-${id}`, `task-date-${id}`, `task-list-${id}`];
+      if (editedTaskValue === 'is-empty') {
+        editBtn.removeAttribute('data-dismiss');
+        const errorMessage = document.getElementById('edit-error-msg');
+        errorMessage.innerHTML = 'Please fill in all inputs!';
+        setTimeout(() => {
+          errorMessage.innerHTML = '';
+        }, 2000);
+      } else {
+        editBtn.setAttribute('data-dismiss', 'modal');
+        const currentInput = [`task-title-${id}`, `task-description-${id}`, `task-date-${id}`, `task-list-${id}`];
 
-      const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
+        const getAllTasks = JSON.parse(localStorage.getItem('allTasks'));
 
-      Object.entries(editedTaskValue).forEach((input, val) => {
-        const key = input[0];
-        const value = input[1];
-        getAllTasks[id][key] = value;
-        if (key === 'task_radio') {
-          document.getElementById(currentInput[val]).className = `list-group-item ${value}-border`;
-        } else {
-          document.getElementById(currentInput[val]).innerText = value;
-        }
-      });
-      localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
+        Object.entries(editedTaskValue).forEach((input, val) => {
+          const key = input[0];
+          const value = input[1];
+          getAllTasks[id][key] = value;
+          if (key === 'task_radio') {
+            document.getElementById(currentInput[val]).className = `list-group-item ${value}-border`;
+          } else {
+            document.getElementById(currentInput[val]).innerText = value;
+          }
+        });
+        localStorage.setItem('allTasks', JSON.stringify(getAllTasks));
+      }
     });
   };
 
@@ -308,6 +358,8 @@ const UI = () => {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('edit')) {
         const editID = e.target.id;
+        const parent = e.target.parentElement.parentElement.className.split(' ')[1];
+        const radio = parent.split('-')[0];
         const id = editID.split('-')[1];
         const editBtn = document.getElementById('confirm-edit-btn');
         editBtn.className = `btn btn-sm button ${id}`;
@@ -322,6 +374,8 @@ const UI = () => {
         allEditedValue.forEach((item, val) => {
           item.value = currentTaskValue[val];
         });
+
+        document.getElementById(`task-priority-${radio}`).checked = true;
       }
     });
   };

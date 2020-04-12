@@ -178,6 +178,10 @@
   right: 10px;
 }
 
+.wrapper .main .project-card .all-tasks-content .list-group-item .task-icons i {
+  cursor: pointer;
+}
+
 .wrapper .main .all-tasks {
   margin: 0 auto;
   width: 50%;

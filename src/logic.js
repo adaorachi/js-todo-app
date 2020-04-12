@@ -1,13 +1,14 @@
 import Task from './task';
 
 const Logic = () => {
+  // eslint-disable-next-line consistent-return
   const createNewTask = () => {
     const tName = document.querySelectorAll('#task_name')[0].value;
     const tDescription = document.querySelectorAll('#task_description')[0].value;
     const tDate = document.querySelectorAll('#task_date')[0].value;
     const tID = document.getElementById('add-task-button').className.split(' ')[2];
     const completedTask = false;
-    let checkedButton = ' ';
+    let checkedButton = '';
 
     const formButtons = document.getElementsByName('priorityRadios');
     formButtons.forEach((button) => {
@@ -16,39 +17,24 @@ const Logic = () => {
       }
     });
 
-    const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
+    if (tDate !== '' && tDescription !== '' && tName !== '' && checkedButton !== '') {
+      const project = Task(tName, tDate, tDescription, checkedButton, tID, completedTask);
 
-    return project;
-
-    // const getTaskValues = (inputs, radioButtons, elemid) => {
-    //   const formInputs = document.querySelectorAll(inputs);
-    //   const formButtons = document.getElementsByName(radioButtons);
-
-    // const getInputValues = {};
-    // formInputs.forEach((input) => {
-
-    //   getInputValues[input.id] = input.value;
-    //   console.log(getInputValues)
-    // });
-
-    // formButtons.forEach((button) => {
-    //   if (button.checked) {
-    //     getInputValues.task_radio = button.value;
-    //   }
-    // });
-
-    // getInputValues.id = elemid;
-    // getInputValues.completed = false;
-
-    // return getInputValues;
-    // };
+      return project;
+    }
   };
+
   const getEditedTaskValue = (inputs, radioButtons) => {
     const formInputs = document.querySelectorAll(inputs);
     const formButtons = document.getElementsByName(radioButtons);
     const getInputValues = {};
+    let empty = false;
     formInputs.forEach((input) => {
-      getInputValues[input.getAttribute('data-id')] = input.value;
+      if (input.value === '') {
+        empty = true;
+      } else {
+        getInputValues[input.getAttribute('data-id')] = input.value;
+      }
     });
 
     formButtons.forEach((button) => {
@@ -56,6 +42,10 @@ const Logic = () => {
         getInputValues.task_radio = button.value;
       }
     });
+
+    if (empty) {
+      return 'is-empty';
+    }
 
     return getInputValues;
   };

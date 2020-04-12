@@ -171,6 +171,10 @@ $primary-color2: #2ea2fd;
             position: absolute;
             top: 0;
             right: 10px;
+
+            i {
+              cursor: pointer;
+            }
           }
 
         }
