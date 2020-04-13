@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Todoist App</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <nav class="navbar fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          Todoist
+        </a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="main-content">
+        <div class="row no-gutters">
+          <div class="col-2">
+            <div class="side-bar">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item get-links" id="get-all-tasks">
+                  <i class="fas fa-tasks"></i>
+                  &nbsp; All Tasks
+                </li>
+                <li class="list-group-item" id="display-all-project-btn" data-toggle="collapse"
+                  data-target="#collapseProject" aria-expanded="false" aria-controls="collapseProject">
+                  <i class="fas fa-project-diagram"></i> &nbsp;
+                  <span>All Projects</span>
+                  <i class="fas fa-sort-down"></i>
+                </li>
+                <div class="collapse show" id="collapseProject">
+                  <div class="card card-body all-project-content scroll-bar">
+                    <ul class="list-group h-100" id="all-projects">
+                    </ul>
+                  </div>
+                </div>
+
+                <li class="list-group-item" data-toggle="modal" data-target="#addProjectModal"
+                  id="add-project-modal-btn">
+                  <i class="fas fa-plus plus-btn" id="plus-btn"></i>
+                  &nbsp;Add New Project
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-10">
+            <section class="project-card">
+              <div class="card text-center">
+                <div class="card-header project-title" id="project-title">
+
+                </div>
+                <div class="card-body all-task-content-card scroll-bar">
+                  <ul class="list-group list-group-flush all-tasks-content" id="all-tasks-content">
+
+                  </ul>
+                </div>
+                <div class="card-footer text-muted">
+                  <button class="btn btn-sm button add-task-form-btn" type="button" data-toggle="collapse"
+                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+                    id="add-task-form-btn">
+                    Add Task <i class="fas fa-sort-down"></i>
+                  </button>
+                </div>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <form id="add-task-form">
+                      <div id="add-task-inputs" class="add-task-inputs">
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text form-control-sm">Title</span>
+                          </div>
+                          <input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Title"
+                            id="task_name">
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Note</span>
+                          </div>
+                          <textarea class="form-control form-control-sm" id="task_description"
+                            placeholder="What do you have in mind?"></textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text form-control-sm">Date</span>
+                          </div>
+                          <input type="date" class="form-control form-control-sm" id="task_date">
+                        </div>
+
+                        <div class="task-radio-buttons d-flex justify-content-center">
+                          <div class="form-check mx-2">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority1"
+                              value="red">
+                            <label class="form-check-label" for="task-priority1">
+                              Priority 1 <i class="fas fa-flag text-danger"></i>
+                            </label>
+                          </div>
+                          <div class="form-check mx-2">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority2"
+                              value="yellow">
+                            <label class="form-check-label" for="task-priority2">
+                              Priority 2 <i class="fas fa-flag text-warning"></i>
+                            </label>
+                          </div>
+                          <div class="form-check mx-2">
+                            <input class="form-check-input" name="priorityRadios" type="radio" id="task-priority3"
+                              value="blue">
+                            <label class="form-check-label" for="task-priority3">
+                              Priority 3 <i class="fas fa-flag text-primary"></i>
+                            </label>
+                          </div>
+                        </div>
+                        <button type="button" class="task-button">
+                          <i class="fas fa-plus-circle project-0" id="add-task-button"></i>
+                        </button>
+                        <div id="error-show" class="text-danger"></div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="project-card all-tasks card text-center">
+              <div class="card-header project-title">ALL TASKS</div>
+              <div id="display-tasks" class="display-tasks">
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addProjectModalLabel">Add Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="add-project-form">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text form-control-sm">Project Name</span>
+                </div>
+                <input type="text" class="form-control form-control-sm" id="project-name"
+                  placeholder="Enter Project Name">
+              </div>
+              <div class="form-group">
+                <label for="project-icon">Select Icon</label>
+                <div class="select-icons">
+                  <i class="fas fa-briefcase icon" id="work"></i>
+                  <i class="fas fa-book-reader icon" id="school"></i>
+                  <i class="fas fa-shopping-cart icon" id="grocery"></i>
+                  <i class="fas fa-users icon" id="event"></i>
+                  <i class="fas fa-plane-departure icon" id="trip"></i>
+                  <i class="fas fa-list-alt icon" id="others"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm button" id="add-project-btn" data-dismiss="modal" disabled>Add
+              Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body edit-task" id="edit-task">
+            <p class="text-danger text-center" id="edit-error-msg"></p>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control-sm">Name</span>
+              </div>
+              <input type="text" class="form-control form-control-sm" placeholder="Task Name" maxlength="30"
+                class="form-control" data-id="task_name">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Note</span>
+              </div>
+              <textarea class="form-control form-control-sm" placeholder="Task Note"
+                data-id="task_description"></textarea>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control-sm">Date</span>
+              </div>
+              <input type="date" class="form-control form-control-sm" class="form-control" data-id="task_date">
+            </div>
+
+            <div class="task-radio-buttons d-flex justify-content-center">
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-red"
+                  value="red">
+                <label class="form-check-label" for="task-priority-red">
+                  Priority 1 <i class="fas fa-flag text-danger"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-yellow"
+                  value="yellow">
+                <label class="form-check-label" for="task-priority-yellow">
+                  Priority 2 <i class="fas fa-flag text-warning"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="radio-edit-input" name="priorityRadiosEdit" type="radio" id="task-priority-blue"
+                  value="blue">
+                <label class="form-check-label" for="task-priority-blue">
+                  Priority 3 <i class="fas fa-flag text-primary"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-sm button" id="confirm-edit-btn">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="dist/main.js"></script>
+</body>
+
+</html>
